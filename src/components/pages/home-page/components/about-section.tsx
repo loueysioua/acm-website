@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/shared/ui/card";
 import { ArrowRight, Code2, Brain, Cloud, Globe } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-export function AboutSection() {
+export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -62,9 +62,12 @@ export function AboutSection() {
       ref={sectionRef}
       id="about"
       className="py-24 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden"
+      style={{
+        boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
+      }}
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 glass rounded-full animate-pulse"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 glass-button rounded-full animate-pulse"></div>
         <div
           className="absolute -bottom-40 -left-40 w-80 h-80 glass-accent rounded-full animate-pulse"
           style={{ animationDelay: "2s" }}
@@ -82,11 +85,6 @@ export function AboutSection() {
             }`}
           >
             <div>
-              <div className="inline-block px-4 py-2 glass-accent rounded-full mb-6">
-                <span className="text-primary font-medium text-sm">
-                  Who We Are
-                </span>
-              </div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
                 About{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
@@ -131,7 +129,7 @@ export function AboutSection() {
               ))}
             </div>
 
-            <Button className="glass-button text-white px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+            <Button className="text-primary glass-button px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group ">
               Learn More About Us
               <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>

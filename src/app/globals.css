@@ -4,81 +4,271 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color palette to match ACM brand colors */
-  --background: #ffffff;
-  --foreground: #003d5b;
-  --card: #f8fafc;
-  --card-foreground: #1f2937;
-  --popover: #ffffff;
-  --popover-foreground: #1f2937;
-  --primary: #01b1cd;
-  --primary-foreground: #ffffff;
-  --secondary: #035294;
-  --secondary-foreground: #ffffff;
-  --muted: #f8fafc;
-  --muted-foreground: #1f2937;
-  --accent: #ffb703;
-  --accent-foreground: #003d5b;
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
-  --border: #e5e7eb;
-  --input: #f1f5f9;
-  --ring: rgba(1, 177, 205, 0.5);
-  --chart-1: #ffb703;
-  --chart-2: #01b1cd;
-  --chart-3: #1f2937;
-  --chart-4: #035294;
-  --chart-5: #f8fafc;
+  /* ============================================
+     ACM BRAND COLORS - CENTRALIZED PALETTE
+     Change these values to update the entire theme
+     ============================================ */
+
+  /* Primary Brand Colors */
+  --acm-blue: #01b1cd;
+  --acm-dark-blue: #035294;
+  --acm-navy: #003d5b;
+  --acm-orange: #ffb703;
+
+  /* Neutral Colors */
+  --white: #ffffff;
+  --black: #000000;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e5e7eb;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1f2937;
+  --gray-900: #0f172a;
+
+  /* Semantic Colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #dc2626;
+  --info: #3b82f6;
+
+  /* ============================================
+     COLOR OPACITY VARIANTS
+     Pre-defined opacity levels for consistency
+     ============================================ */
+
+  /* Primary Color Opacities */
+  --acm-blue-10: rgba(1, 177, 205, 0.1);
+  --acm-blue-20: rgba(1, 177, 205, 0.2);
+  --acm-blue-30: rgba(1, 177, 205, 0.3);
+  --acm-blue-40: rgba(1, 177, 205, 0.4);
+  --acm-blue-50: rgba(1, 177, 205, 0.5);
+
+  /* Orange Accent Opacities */
+  --acm-orange-10: rgba(255, 183, 3, 0.1);
+  --acm-orange-15: rgba(255, 183, 3, 0.15);
+  --acm-orange-20: rgba(255, 183, 3, 0.2);
+  --acm-orange-30: rgba(255, 183, 3, 0.3);
+
+  /* Navy Opacities */
+  --acm-navy-20: rgba(0, 61, 91, 0.2);
+  --acm-navy-30: rgba(0, 61, 91, 0.3);
+  --acm-navy-40: rgba(0, 61, 91, 0.4);
+
+  /* White Opacities for Glassmorphism */
+  --white-5: rgba(255, 255, 255, 0.05);
+  --white-8: rgba(255, 255, 255, 0.08);
+  --white-10: rgba(255, 255, 255, 0.1);
+  --white-20: rgba(255, 255, 255, 0.2);
+  --white-40: rgba(255, 255, 255, 0.4);
+
+  /* Black Opacities for Shadows */
+  --black-10: rgba(0, 0, 0, 0.1);
+  --black-20: rgba(0, 0, 0, 0.2);
+  --black-30: rgba(0, 0, 0, 0.3);
+  --black-40: rgba(0, 0, 0, 0.4);
+  --black-50: rgba(0, 0, 0, 0.5);
+
+  /* ============================================
+     DESIGN SYSTEM TOKENS
+     Semantic color assignments
+     ============================================ */
+
+  --background: var(--white);
+  --foreground: var(--acm-navy);
+  --card: var(--gray-50);
+  --card-foreground: var(--gray-800);
+  --popover: var(--white);
+  --popover-foreground: var(--gray-800);
+  --primary: var(--acm-blue);
+  --primary-foreground: var(--white);
+  --secondary: var(--acm-dark-blue);
+  --secondary-foreground: var(--white);
+  --muted: var(--gray-50);
+  --muted-foreground: var(--gray-800);
+  --accent: var(--acm-orange);
+  --accent-foreground: var(--acm-navy);
+  --destructive: var(--error);
+  --destructive-foreground: var(--white);
+  --border: var(--gray-200);
+  --input: var(--gray-100);
+  --ring: var(--acm-blue-50);
+
+  /* Chart Colors */
+  --chart-1: var(--acm-orange);
+  --chart-2: var(--acm-blue);
+  --chart-3: var(--gray-800);
+  --chart-4: var(--acm-dark-blue);
+  --chart-5: var(--gray-50);
+
+  /* Border Radius */
   --radius: 0.5rem;
-  --sidebar: #003d5b;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #01b1cd;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ffb703;
-  --sidebar-accent-foreground: #003d5b;
-  --sidebar-border: #e5e7eb;
-  --sidebar-ring: rgba(1, 177, 205, 0.5);
+
+  /* Sidebar Tokens */
+  --sidebar: var(--acm-navy);
+  --sidebar-foreground: var(--white);
+  --sidebar-primary: var(--acm-blue);
+  --sidebar-primary-foreground: var(--white);
+  --sidebar-accent: var(--acm-orange);
+  --sidebar-accent-foreground: var(--acm-navy);
+  --sidebar-border: var(--gray-200);
+  --sidebar-ring: var(--acm-blue-50);
+
+  /* ============================================
+     GLASSMORPHISM TOKENS
+     Centralized glass effect colors
+     ============================================ */
+
+  --glass-bg: var(--white-10);
+  --glass-border: var(--white-20);
+  --glass-shadow: var(--black-10);
+
+  --glass-card-bg: var(--white-5);
+  --glass-card-border: var(--white-10);
+  --glass-card-shadow: var(--black-10);
+
+  --glass-nav-bg: var(--white-8);
+  --glass-nav-border: var(--white-10);
+  --glass-nav-shadow: var(--black-10);
+
+  --glass-button-bg: var(--acm-blue-20);
+  --glass-button-border: var(--acm-blue-30);
+  --glass-button-shadow: var(--acm-blue-20);
+  --glass-button-hover-bg: var(--acm-blue-30);
+  --glass-button-hover-border: var(--acm-blue-40);
+  --glass-button-hover-shadow: var(--acm-blue-30);
+
+  --glass-accent-bg: var(--acm-orange-10);
+  --glass-accent-border: var(--acm-orange-20);
+  --glass-accent-shadow: var(--acm-orange-10);
+
+  /* ============================================
+     GRADIENT TOKENS
+     Centralized gradient definitions
+     ============================================ */
+
+  --gradient-hero: linear-gradient(
+    135deg,
+    var(--acm-blue) 0%,
+    var(--acm-dark-blue) 50%,
+    var(--acm-navy) 100%
+  );
+  --gradient-accent: linear-gradient(
+    135deg,
+    var(--acm-orange) 0%,
+    var(--acm-blue) 100%
+  );
+  --gradient-background: linear-gradient(
+    135deg,
+    var(--gray-50) 0%,
+    #e2e8f0 50%,
+    var(--gray-300) 100%
+  );
+
+  /* ============================================
+     SHADOW TOKENS
+     Centralized shadow definitions
+     ============================================ */
+
+  --shadow-sm: 0 2px 4px var(--black-10);
+  --shadow-md: 0 4px 8px var(--black-10);
+  --shadow-lg: 0 8px 16px var(--black-10);
+  --shadow-xl: 0 12px 24px var(--black-20);
+  --shadow-2xl: 0 20px 40px var(--black-20);
+
+  --shadow-glow-blue: 0 0 20px var(--acm-blue-30);
+  --shadow-glow-orange: 0 0 20px var(--acm-orange-20);
+
+  /* ============================================
+     TEXT SHADOW TOKENS
+     For better readability on gradients
+     ============================================ */
+
+  --text-shadow-sm: 0 2px 4px var(--black-30);
+  --text-shadow-md: 0 2px 4px var(--black-40), 0 4px 8px var(--black-20);
+  --text-shadow-lg: 0 2px 4px var(--black-50);
 }
 
 .dark {
-  --background: #003d5b;
-  --foreground: #ffffff;
-  --card: #035294;
-  --card-foreground: #ffffff;
-  --popover: #003d5b;
-  --popover-foreground: #ffffff;
-  --primary: #01b1cd;
-  --primary-foreground: #003d5b;
-  --secondary: #035294;
-  --secondary-foreground: #ffffff;
-  --muted: #035294;
-  --muted-foreground: #e5e7eb;
-  --accent: #ffb703;
-  --accent-foreground: #003d5b;
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
-  --border: #035294;
-  --input: #035294;
-  --ring: rgba(1, 177, 205, 0.5);
-  --chart-1: #ffb703;
-  --chart-2: #01b1cd;
-  --chart-3: #ffffff;
-  --chart-4: #035294;
-  --chart-5: #f8fafc;
-  --radius: 0.5rem;
-  --sidebar: #003d5b;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #01b1cd;
-  --sidebar-primary-foreground: #003d5b;
-  --sidebar-accent: #ffb703;
-  --sidebar-accent-foreground: #003d5b;
-  --sidebar-border: #035294;
-  --sidebar-ring: rgba(1, 177, 205, 0.5);
+  --background: var(--acm-navy);
+  --foreground: var(--white);
+  --card: var(--acm-dark-blue);
+  --card-foreground: var(--white);
+  --popover: var(--acm-navy);
+  --popover-foreground: var(--white);
+  --primary: var(--acm-blue);
+  --primary-foreground: var(--acm-navy);
+  --secondary: var(--acm-dark-blue);
+  --secondary-foreground: var(--white);
+  --muted: var(--acm-dark-blue);
+  --muted-foreground: var(--gray-200);
+  --accent: var(--acm-orange);
+  --accent-foreground: var(--acm-navy);
+  --destructive: var(--error);
+  --destructive-foreground: var(--white);
+  --border: var(--acm-dark-blue);
+  --input: var(--acm-dark-blue);
+  --ring: var(--acm-blue-50);
+  --chart-1: var(--acm-orange);
+  --chart-2: var(--acm-blue);
+  --chart-3: var(--white);
+  --chart-4: var(--acm-dark-blue);
+  --chart-5: var(--gray-50);
+  --sidebar: var(--acm-navy);
+  --sidebar-foreground: var(--white);
+  --sidebar-primary: var(--acm-blue);
+  --sidebar-primary-foreground: var(--acm-navy);
+  --sidebar-accent: var(--acm-orange);
+  --sidebar-accent-foreground: var(--acm-navy);
+  --sidebar-border: var(--acm-dark-blue);
+  --sidebar-ring: var(--acm-blue-50);
+
+  /* Dark mode glassmorphism adjustments */
+  --glass-bg: var(--acm-navy-30);
+  --glass-border: var(--white-10);
+  --glass-card-bg: var(--acm-navy-20);
+  --glass-card-border: var(--white-5);
+  --glass-nav-bg: var(--acm-navy-40);
+  --glass-nav-border: var(--white-10);
 }
 
 @theme inline {
+  /* Centralized all ACM brand colors in Tailwind theme */
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* ACM Brand Colors - Available as Tailwind utilities */
+  --color-acm-blue: var(--acm-blue);
+  --color-acm-dark-blue: var(--acm-dark-blue);
+  --color-acm-navy: var(--acm-navy);
+  --color-acm-orange: var(--acm-orange);
+
+  /* Neutral Colors */
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+
+  /* Semantic Colors */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+
+  /* Design System Tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -103,10 +293,14 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
+  /* Border Radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Sidebar Tokens */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -122,7 +316,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+    /* Using centralized gradient token */
+    background: var(--gradient-background);
     background-attachment: fixed;
     @apply bg-background text-foreground;
   }
@@ -195,10 +390,10 @@
 @keyframes pulse-glow {
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(1, 177, 205, 0.3);
+    box-shadow: var(--shadow-glow-blue);
   }
   50% {
-    box-shadow: 0 0 30px rgba(1, 177, 205, 0.6);
+    box-shadow: 0 0 30px var(--acm-blue-50);
   }
 }
 
@@ -232,12 +427,7 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, var(--white-40), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -258,7 +448,7 @@
 
 .btn-enhanced:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-enhanced:active {
@@ -273,7 +463,7 @@
 
 .card-enhanced:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(1, 177, 205, 0.1);
+  box-shadow: 0 20px 40px var(--acm-blue-10);
 }
 
 /* Smooth scroll behavior for better navigation */
@@ -288,91 +478,100 @@ html {
   transition: outline 0.2s ease;
 }
 
-/* Enhanced gradient backgrounds with better contrast and fallback colors */
+/* Enhanced gradient backgrounds using centralized tokens */
 .gradient-hero {
-  background: #003d5b; /* Fallback dark background */
-  background: linear-gradient(135deg, #01b1cd 0%, #035294 50%, #003d5b 100%);
+  background: var(--acm-navy); /* Fallback */
+  background: var(--gradient-hero);
   min-height: 100vh;
 }
 
 .gradient-accent {
-  background: linear-gradient(135deg, #ffb703 0%, #01b1cd 100%);
+  background: var(--gradient-accent);
 }
 
-/* Added text shadow for better readability on gradient backgrounds */
+/* Text shadows using centralized tokens */
 .hero-text-shadow {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-shadow: var(--text-shadow-md);
 }
 
 .hero-text-contrast {
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: var(--white);
+  text-shadow: var(--text-shadow-lg);
 }
 
 .hero-accent-text {
-  color: #ffb703;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  color: var(--acm-orange);
+  text-shadow: var(--text-shadow-sm);
 }
 
-/* Adding glassmorphism utility classes */
+/* Glassmorphism utility classes using centralized tokens */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: var(--glass-bg);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px var(--glass-shadow);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px);
+  background: var(--glass-card-bg);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: 0 4px 24px var(--glass-card-shadow);
 }
 
 .glass-nav {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+  background: var(--glass-nav-bg);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--glass-nav-border);
+  box-shadow: 0 2px 16px var(--glass-nav-shadow);
 }
 
 .glass-button {
-  background: rgba(1, 177, 205, 0.2);
-  backdrop-filter: blur(12px);
+  background: var(--glass-button-bg);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(1, 177, 205, 0.3);
-  box-shadow: 0 4px 16px rgba(1, 177, 205, 0.2);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-button-border);
+  box-shadow: 0 4px 16px var(--glass-button-shadow);
 }
 
 .glass-button:hover {
-  background: rgba(1, 177, 205, 0.3);
-  border: 1px solid rgba(1, 177, 205, 0.4);
-  box-shadow: 0 6px 20px rgba(1, 177, 205, 0.3);
+  background: var(--glass-button-hover-bg);
+  border: 1px solid var(--glass-button-hover-border);
+  box-shadow: 0 6px 20px var(--glass-button-hover-shadow);
 }
 
 .glass-accent {
-  background: rgba(255, 183, 3, 0.15);
-  backdrop-filter: blur(16px);
+  background: var(--glass-accent-bg);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 183, 3, 0.2);
-  box-shadow: 0 4px 20px rgba(255, 183, 3, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-accent-border);
+  box-shadow: 0 4px 20px var(--glass-accent-shadow);
 }
 
-/* Dark mode glassmorphism variants */
+/* Dark mode glassmorphism variants using centralized tokens */
 .dark .glass {
-  background: rgba(0, 61, 91, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
 }
 
 .dark .glass-card {
-  background: rgba(0, 61, 91, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
 }
 
 .dark .glass-nav {
-  background: rgba(0, 61, 91, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-nav-bg);
+  border-bottom: 1px solid var(--glass-nav-border);
+}
+
+.hero-background {
+  background: linear-gradient(
+    135deg,
+    var(--acm-blue) 0%,
+    var(--acm-dark-blue) 50%,
+    var(--acm-navy) 100%
+  );
 }

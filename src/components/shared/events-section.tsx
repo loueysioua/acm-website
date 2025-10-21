@@ -4,7 +4,14 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/shared/ui/button";
 import { Card, CardContent } from "@/components/shared/ui/card";
 import { Badge } from "@/components/shared/ui/badge";
-import { Calendar, Clock, MapPin, ArrowRight, Sparkles } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  ArrowRight,
+  Sparkles,
+  Trophy,
+} from "lucide-react";
 
 export function EventsSection() {
   const [timeLeft, setTimeLeft] = useState({
@@ -78,12 +85,12 @@ export function EventsSection() {
           <div className="inline-block px-4 py-2 bg-accent/10 rounded-full mb-6">
             <span className="text-accent font-medium text-sm flex items-center">
               <Sparkles className="h-4 w-4 mr-2" />
-              What's Coming Up
+              What&apos;s Coming Up
             </span>
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
             Upcoming{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
               Events
             </span>
           </h2>
@@ -102,14 +109,17 @@ export function EventsSection() {
           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-accent/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
           <CardContent className="p-8 sm:p-12 relative">
+            <div className="inline-block px-4 py-2 bg-accent/10 rounded-full mb-10">
+              <span className="text-accent font-medium text-sm flex items-center">
+                <Trophy className="h-5 w-5 mr-2 text-accent" />
+                Featured Event
+              </span>
+            </div>
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
-                <Badge className="bg-gradient-to-r from-accent to-primary text-white px-4 py-2 text-sm font-semibold shadow-lg">
-                  🏆 Featured Event
-                </Badge>
                 <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-foreground leading-tight">
                   Winter Cup{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
                     8.0
                   </span>
                 </h3>
@@ -150,7 +160,7 @@ export function EventsSection() {
                   <h4 className="text-2xl font-bold text-foreground">
                     Event Starts In:
                   </h4>
-                  <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
+                  <div className="w-16 h-1 bg-gradient-to-r from-accent/20 to-accent mx-auto rounded-full"></div>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -164,7 +174,7 @@ export function EventsSection() {
                       key={index}
                       className="bg-gradient-to-br from-background to-muted/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-border/50"
                     >
-                      <div className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                      <div className="text-3xl sm:text-4xl font-black text-accent">
                         {item.value.toString().padStart(2, "0")}
                       </div>
                       <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold mt-2">

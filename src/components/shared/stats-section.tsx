@@ -11,6 +11,7 @@ interface StatItem {
   label: string;
   suffix: string;
   iconColor: string;
+  backgroundColor: string;
 }
 
 export function StatsSection() {
@@ -24,6 +25,7 @@ export function StatsSection() {
       label: "Members Enrolled",
       suffix: "+",
       iconColor: "text-primary",
+      backgroundColor: "bg-primary/10",
     },
     {
       icon: Trophy,
@@ -31,6 +33,7 @@ export function StatsSection() {
       label: "Competitions Participated In",
       suffix: "+",
       iconColor: "text-accent",
+      backgroundColor: "bg-accent/10",
     },
     {
       icon: BookOpen,
@@ -38,6 +41,7 @@ export function StatsSection() {
       label: "Workshops Conducted",
       suffix: "+",
       iconColor: "text-secondary",
+      backgroundColor: "bg-secondary/10",
     },
     {
       icon: Heart,
@@ -45,6 +49,7 @@ export function StatsSection() {
       label: "Social Media Community",
       suffix: "K+ followers",
       iconColor: "text-primary",
+      backgroundColor: "bg-primary/10",
     },
   ];
 
@@ -85,9 +90,6 @@ export function StatsSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="inline-block px-4 py-2 glass-accent rounded-full mb-6">
-            <span className="text-primary font-medium text-sm">Our Impact</span>
-          </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
             Key{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
@@ -115,7 +117,9 @@ export function StatsSection() {
 
               <CardContent className="p-8 text-center relative">
                 <div className="mb-6 flex justify-center">
-                  <div className="p-5 rounded-2xl glass-accent group-hover:scale-110 transition-all duration-300 shadow-lg">
+                  <div
+                    className={`p-5 rounded-2xl group-hover:scale-110 transition-all duration-300 ${stat.backgroundColor}`}
+                  >
                     <stat.icon
                       className={`h-10 w-10 ${stat.iconColor} drop-shadow-sm`}
                     />
