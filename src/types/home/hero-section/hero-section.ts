@@ -1,4 +1,5 @@
-import { LinkType } from "../../shared/link/link";
+import { LinkType } from "@/types/shared/link/link";
+import { StatisticType } from "@/types/shared/statistic/statistic";
 
 export interface HeroSectionType {
   label?: string;
@@ -8,4 +9,5 @@ export interface HeroSectionType {
   ctaPrimary: LinkType;
   ctaSecondary: LinkType;
   description?: string;
+  statistics?: StatisticType[];
 }

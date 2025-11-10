@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/shared/ui/card";
 import { Button } from "@/components/shared/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export function MemoriesSection() {
+export default function MemoriesSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const memories = [

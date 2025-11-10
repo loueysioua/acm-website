@@ -1,9 +1,7 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/shared/ui/button";
 import { Card, CardContent } from "@/components/shared/ui/card";
-import { Badge } from "@/components/shared/ui/badge";
 import {
   Calendar,
   Clock,
@@ -13,7 +11,7 @@ import {
   Trophy,
 } from "lucide-react";
 
-export function EventsSection() {
+export default function EventsSection() {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -95,8 +93,8 @@ export function EventsSection() {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-            Don't miss our exciting upcoming events and competitions that bring
-            together the brightest minds in computer science.
+            Don&apos;t miss our exciting upcoming events and competitions that
+            bring together the brightest minds in computer science.
           </p>
         </div>
 

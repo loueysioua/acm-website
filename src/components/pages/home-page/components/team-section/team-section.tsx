@@ -1,10 +1,10 @@
 "use client";
 import { Button } from "@/components/shared/ui/button";
 import { ArrowRight } from "lucide-react";
-import Hexagon from "./team-section/components/hexagon-element";
 import { useState, useEffect, useMemo } from "react";
+import Hexagon from "./components/hexagon-element";
 
-export function TeamSection() {
+export default function TeamSection() {
   const teamMembers = useMemo(
     () => [
       {

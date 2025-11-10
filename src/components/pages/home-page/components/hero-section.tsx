@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { Button } from "@/components/shared/ui/button";
 import {
   ArrowRight,
@@ -14,9 +13,8 @@ import {
 import Image from "next/image";
 import { BackgroundShapes, GeometricRain } from "@/components/shared";
 import { useEffect, useState } from "react";
-import { contentful } from "@/lib/contentful.config";
 import { HeroSectionType } from "@/types/home/hero-section/hero-section";
-import homeService from "@/services/home-service";
+import homeService from "@/services/home.service";
 import { useRouter } from "next/navigation";
 
 export default function HeroSection() {
@@ -31,9 +29,9 @@ export default function HeroSection() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(heroSectionContent);
-  }, [heroSectionContent]);
+  const onCtaClick = (path: string) => {
+    router.push(path);
+  };
 
   return (
     <section
@@ -114,7 +112,9 @@ export default function HeroSection() {
               <Button
                 size="lg"
                 className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg btn-enhanced animate-pulse-glow font-semibold shadow-lg"
-                onClick={onCtaPrimaryClick}
+                onClick={() =>
+                  onCtaClick(heroSectionContent?.ctaPrimary.url ?? "")
+                }
               >
                 {heroSectionContent?.ctaPrimary.label}
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -128,6 +128,9 @@ export default function HeroSection() {
                   borderWidth: "2px",
                   color: "#ffffff",
                 }}
+                onClick={() =>
+                  onCtaClick(heroSectionContent?.ctaSecondary.url ?? "")
+                }
               >
                 Join Us Today
               </Button>

@@ -3,7 +3,7 @@
 import { Card, CardContent } from "@/components/shared/ui/card";
 import Image from "next/image";
 
-export function PartnersSection() {
+export default function PartnersSection() {
   const partners = [
     {
       name: "NVIDIA",
@@ -50,7 +50,7 @@ export function PartnersSection() {
             Our Partners & <span className="text-primary">Sponsors</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-            We're proud to collaborate with industry leaders and academic
+            We&apos;re proud to collaborate with industry leaders and academic
             institutions.
           </p>
         </div>
