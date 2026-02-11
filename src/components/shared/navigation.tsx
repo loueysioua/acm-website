@@ -14,11 +14,13 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedNavItem, setSelectedNavItem] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,8 +82,10 @@ export function Navigation() {
             {navItems.map((item, index) => (
               <a
                 key={item.name}
-                href={item.href}
-                onClick={() => setSelectedNavItem(index)}
+                onClick={() => {
+                  setSelectedNavItem(index);
+                  router.push(item.href);
+                }}
                 className={`hover:text-accent transition-all duration-300 font-medium drop-shadow-sm relative group px-3 py-2 rounded-lg hover:glass-accent ${
                   selectedNavItem === index
                     ? "text-accent"

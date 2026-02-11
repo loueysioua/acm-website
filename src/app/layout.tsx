@@ -4,6 +4,9 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Suspense } from "react";
 import "./globals.css";
+import { Navigation } from "@/components/shared/navigation";
+import { LocationSection } from "@/components/shared/location-section";
+import { Footer } from "react-day-picker";
 
 export const metadata: Metadata = {
   icons: {
@@ -38,7 +41,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <Suspense fallback={null}>{children}</Suspense>
+        <Suspense fallback={null}>
+          <Navigation />
+
+          {children}
+          <LocationSection />
+          <Footer />
+        </Suspense>
       </body>
     </html>
   );
