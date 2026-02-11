@@ -127,19 +127,24 @@ export default function HeroSection({ data }: HeroProps) {
                 {ctaPrimaryResolved?.label}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="px-6 py-[22px] text-lg btn-enhanced font-semibold bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all"
-                style={{
-                  borderColor: "#ffffff",
-                  borderWidth: "2px",
-                  color: "#ffffff",
-                }}
-                onClick={() => onCtaClick(ctaSecondaryResolved?.url ?? "")}
+              <a
+                href={ctaSecondaryResolved?.url}
+                target="_blank" // Opens in new tab
+                rel="noopener noreferrer"
               >
-                {ctaSecondaryResolved?.label}
-              </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="px-6 py-[22px] text-lg btn-enhanced font-semibold bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all"
+                  style={{
+                    borderColor: "#ffffff",
+                    borderWidth: "2px",
+                    color: "#ffffff",
+                  }}
+                >
+                  {ctaSecondaryResolved?.label}
+                </Button>
+              </a>
             </div>
 
             {/* Stats Row */}
