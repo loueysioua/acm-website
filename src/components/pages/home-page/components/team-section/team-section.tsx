@@ -32,7 +32,7 @@ export default function TeamSection({ data }: TeamProps) {
     const rows = [];
     let i = 0;
     let rowIndex = 0;
-    const pattern = [4, 3];
+    const pattern = [5, 4];
 
     while (i < members.length) {
       const rowSize = pattern[rowIndex % pattern.length];
