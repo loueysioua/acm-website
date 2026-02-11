@@ -3,6 +3,10 @@
 # To get started with Next.js see: https://nextjs.org/docs/getting-started
 #
 name: Deploy Next.js site to Pages
+env:
+  # Replace 'NEXT_PUBLIC_ACCESS_TOKEN' with whatever your actual variable name is
+  NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE_ID }}
+  NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
 
 on:
   # Runs on pushes targeting the default branch
