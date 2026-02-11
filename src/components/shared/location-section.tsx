@@ -23,7 +23,7 @@ export function LocationSection() {
             <CardContent className="p-0">
               <div className="relative h-96 bg-muted">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3193.0123456789!2d10.1234567!3d36.8123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sINSAT!5e0!3m2!1sen!2stn!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3192.986799445003!2d10.195848721300516!3d36.84279219587733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd3500366b0ddf%3A0x684848480f62768f!2sACM%20INSAT!5e0!3m2!1sen!2stn!4v1770836892396!5m2!1sen!2stn"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

@@ -160,7 +160,7 @@ export default function EventsSection({ data }: EventsProps) {
                 Featured Event
               </span>
             </div>
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="flex lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-foreground leading-tight">
                   {upcomingResolved?.title.split(" ").slice(0, -1).join(" ")}{" "}

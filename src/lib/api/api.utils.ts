@@ -1,4 +1,15 @@
 import { Asset, Entry, EntrySkeletonType, UnresolvedLink } from "contentful";
+import { contentful } from "../contentful.config";
+
+export async function getMedia(assetId: string) {
+  const asset = await contentful.getAsset(assetId);
+
+  return {
+    url: getAssetUrl(asset),
+    title: getAssetTitle(asset),
+    contentType: getAssetDescription(asset),
+  };
+}
 
 export function isResolvedEntry<T extends EntrySkeletonType>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
