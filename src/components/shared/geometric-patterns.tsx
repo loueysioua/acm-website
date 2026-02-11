@@ -1,6 +1,6 @@
-;<svg
+<svg
   xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlnsXlink="http://www.w3.org/1999/xlink"
   width="1920"
   zoomAndPan="magnify"
   viewBox="0 0 1440 809.999993"
@@ -28,7 +28,10 @@
       />
     </clipPath>
     <clipPath id="389e8e7f37">
-      <path d="M 868 193 L 956.199219 193 L 956.199219 281.339844 L 868 281.339844 Z M 868 193 " clip-rule="nonzero" />
+      <path
+        d="M 868 193 L 956.199219 193 L 956.199219 281.339844 L 868 281.339844 Z M 868 193 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="04e617cdbb">
       <path
@@ -55,7 +58,10 @@
       />
     </clipPath>
     <clipPath id="bcf92509c5">
-      <path d="M 253 196 L 511 196 L 511 453 L 253 453 Z M 253 196 " clip-rule="nonzero" />
+      <path
+        d="M 253 196 L 511 196 L 511 453 L 253 453 Z M 253 196 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="8b191ceaef">
       <path
@@ -70,7 +76,10 @@
       />
     </clipPath>
     <clipPath id="45333b9cc9">
-      <path d="M 253 196 L 511 196 L 511 378 L 253 378 Z M 253 196 " clip-rule="nonzero" />
+      <path
+        d="M 253 196 L 511 196 L 511 378 L 253 378 Z M 253 196 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="03d471f6ed">
       <path
@@ -85,7 +94,10 @@
       />
     </clipPath>
     <clipPath id="e3e4ef22d6">
-      <path d="M 319 196 L 449 196 L 449 287 L 319 287 Z M 319 196 " clip-rule="nonzero" />
+      <path
+        d="M 319 196 L 449 196 L 449 287 L 319 287 Z M 319 196 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="e6ebffe41b">
       <path
@@ -178,7 +190,10 @@
       />
     </clipPath>
     <clipPath id="55e6cf1380">
-      <path d="M 570 276 L 818 276 L 818 524 L 570 524 Z M 570 276 " clip-rule="nonzero" />
+      <path
+        d="M 570 276 L 818 276 L 818 524 L 570 524 Z M 570 276 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="d127c52d3c">
       <path
@@ -193,7 +208,10 @@
       />
     </clipPath>
     <clipPath id="e6beaba473">
-      <path d="M 570 276 L 818 276 L 818 403 L 570 403 Z M 570 276 " clip-rule="nonzero" />
+      <path
+        d="M 570 276 L 818 276 L 818 403 L 570 403 Z M 570 276 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="def8e190f3">
       <path
@@ -208,7 +226,10 @@
       />
     </clipPath>
     <clipPath id="5194bae836">
-      <path d="M 650 355 L 738 355 L 738 444 L 650 444 Z M 650 355 " clip-rule="nonzero" />
+      <path
+        d="M 650 355 L 738 355 L 738 444 L 650 444 Z M 650 355 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="01664b7c88">
       <path
@@ -277,7 +298,10 @@
       />
     </clipPath>
     <clipPath id="96df0252d2">
-      <path d="M 441 145 L 698 145 L 698 402 L 441 402 Z M 441 145 " clip-rule="nonzero" />
+      <path
+        d="M 441 145 L 698 145 L 698 402 L 441 402 Z M 441 145 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="84ee19644c">
       <path
@@ -292,7 +316,10 @@
       />
     </clipPath>
     <clipPath id="eaf4d8d102">
-      <path d="M 441 220 L 698 220 L 698 402 L 441 402 Z M 441 220 " clip-rule="nonzero" />
+      <path
+        d="M 441 220 L 698 220 L 698 402 L 441 402 Z M 441 220 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="2ef81974b0">
       <path
@@ -307,7 +334,10 @@
       />
     </clipPath>
     <clipPath id="5ff0cb09c8">
-      <path d="M 503 311 L 632 311 L 632 402 L 503 402 Z M 503 311 " clip-rule="nonzero" />
+      <path
+        d="M 503 311 L 632 311 L 632 402 L 503 402 Z M 503 311 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="7918b518d0">
       <path
@@ -340,7 +370,10 @@
       />
     </clipPath>
     <clipPath id="304354723b">
-      <path d="M 568 479 L 648.980469 479 L 648.980469 559.589844 L 568 559.589844 Z M 568 479 " clip-rule="nonzero" />
+      <path
+        d="M 568 479 L 648.980469 479 L 648.980469 559.589844 L 568 559.589844 Z M 568 479 "
+        clip-rule="nonzero"
+      />
     </clipPath>
     <clipPath id="264b19f305">
       <path
@@ -797,4 +830,4 @@
       fill-rule="nonzero"
     />
   </g>
-</svg>
+</svg>;
