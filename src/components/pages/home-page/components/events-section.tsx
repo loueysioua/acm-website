@@ -10,8 +10,32 @@ import {
   Sparkles,
   Trophy,
 } from "lucide-react";
+import { TypeUpComingEventSectionSkeleton } from "@/types/contentful";
+import { Entry } from "contentful";
+import { isResolvedEntry } from "@/lib/api/api.utils";
+import { useRouter } from "next/navigation";
 
-export default function EventsSection() {
+interface EventsProps {
+  data: Entry<TypeUpComingEventSectionSkeleton, undefined, string>;
+}
+
+export default function EventsSection({ data }: EventsProps) {
+  const { title, description, upcomingEvent, eventsLink } = data.fields;
+  const upcomingResolved = isResolvedEntry(upcomingEvent)
+    ? upcomingEvent.fields
+    : null;
+  const upcomingEventRegistration = isResolvedEntry(
+    upcomingResolved?.registrationLink,
+  )
+    ? upcomingResolved?.registrationLink.fields
+    : null;
+  const eventsLinkResolved = isResolvedEntry(eventsLink)
+    ? eventsLink.fields
+    : null;
+
+  const targetDateStr = upcomingResolved?.startTime || upcomingResolved?.date;
+  const targetDate = targetDateStr ? new Date(targetDateStr) : null;
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -20,46 +44,70 @@ export default function EventsSection() {
   });
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const router = useRouter();
 
-  // Winter Cup 8.0 - example date (you can update this)
-  const eventDate = new Date("2025-02-15T09:00:00");
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "TBA";
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  const formatTimeRange = (start?: string, end?: string) => {
+    if (!start) return "TBA";
+    const opts: Intl.DateTimeFormatOptions = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const s = new Date(start).toLocaleTimeString("en-US", opts);
+    const e = end ? new Date(end).toLocaleTimeString("en-US", opts) : "";
+    return e ? `${s} - ${e}` : s;
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    if (!targetDate) return;
+
+    const calculateTimeLeft = () => {
       const now = new Date().getTime();
-      const distance = eventDate.getTime() - now;
+      const distance = targetDate.getTime() - now;
 
       if (distance > 0) {
         setTimeLeft({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
           hours: Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
           ),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
+      } else {
+        // Event has passed or started
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
-    }, 1000);
+    };
 
+    // Run immediately so we don't wait 1 second for first render
+    calculateTimeLeft();
+
+    const timer = setInterval(calculateTimeLeft, 1000);
     return () => clearInterval(timer);
-  }, [eventDate]);
+  }, [targetDateStr]);
+
+  if (!upcomingResolved) return null;
 
   return (
     <section
@@ -87,14 +135,13 @@ export default function EventsSection() {
             </span>
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
-            Upcoming{" "}
+            {title.split(" ")[0]}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-              Events
+              {title.split(" ")[1]}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-            Don&apos;t miss our exciting upcoming events and competitions that
-            bring together the brightest minds in computer science.
+            {description}
           </p>
         </div>
 
@@ -116,23 +163,29 @@ export default function EventsSection() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-foreground leading-tight">
-                  Winter Cup{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                    8.0
+                  {upcomingResolved?.title.split(" ").slice(0, -1).join(" ")}{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary ">
+                    {upcomingResolved?.title.split(" ")[-1]}
                   </span>
                 </h3>
-                <p className="text-lg text-muted-foreground text-pretty leading-relaxed">
-                  Our flagship competitive programming contest returns! Join
-                  programmers from across the region in this exciting
-                  competition featuring challenging algorithmic problems and
-                  amazing prizes.
+                <p className="text-lg text-muted-foreground text-pretty leading-relaxed w-150">
+                  {upcomingResolved?.description}
                 </p>
 
                 <div className="space-y-4">
                   {[
-                    { icon: Calendar, text: "February 15, 2025" },
-                    { icon: Clock, text: "9:00 AM - 6:00 PM" },
-                    { icon: MapPin, text: "INSAT Campus, Tunis" },
+                    {
+                      icon: Calendar,
+                      text: formatDate(upcomingResolved.startTime),
+                    },
+                    {
+                      icon: Clock,
+                      text: formatTimeRange(
+                        upcomingResolved.startTime,
+                        upcomingResolved.endTime,
+                      ),
+                    },
+                    { icon: MapPin, text: upcomingResolved.location },
                   ].map((item, index) => (
                     <div
                       key={index}
@@ -146,10 +199,16 @@ export default function EventsSection() {
                   ))}
                 </div>
 
-                <Button className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-                  Register Now
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                </Button>
+                <a
+                  href={upcomingEventRegistration?.url}
+                  target="_blank" // Opens in new tab
+                  rel="noopener noreferrer"
+                >
+                  <Button className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                    {upcomingEventRegistration?.label}
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Button>
+                </a>
               </div>
 
               {/* Countdown Timer */}
@@ -195,8 +254,9 @@ export default function EventsSection() {
           <Button
             variant="outline"
             className="border-2 border-primary text-primary hover:bg-primary hover:text-white bg-transparent px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+            onClick={() => router.push(eventsLinkResolved?.url || "/events")}
           >
-            See All Events
+            {eventsLinkResolved?.label}
             <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </div>

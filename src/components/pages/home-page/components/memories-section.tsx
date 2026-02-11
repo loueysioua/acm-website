@@ -4,47 +4,37 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/shared/ui/card";
 import { Button } from "@/components/shared/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { TypeMemoriesSectionSkeleton } from "@/types/contentful";
+import { Entry } from "contentful";
+import {
+  getAssetDescription,
+  getAssetTitle,
+  getAssetUrl,
+} from "@/lib/api/api.utils";
 
-export default function MemoriesSection() {
+interface MemoriesProps {
+  data: Entry<TypeMemoriesSectionSkeleton, undefined, string>;
+}
+
+export default function MemoriesSection({ data }: MemoriesProps) {
+  const { title, memories } = data.fields;
+  const memoriesResolved = memories?.map((memo) => {
+    return {
+      image: getAssetUrl(memo),
+      title: getAssetTitle(memo),
+      description: getAssetDescription(memo),
+    };
+  });
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const memories = [
-    {
-      image: "/acm-students-at-competitive-programming-contest-tc.jpg",
-      title: "TCPC 2024 Winners",
-      description:
-        "Our team celebrating victory at the Tunisian Collegiate Programming Contest",
-    },
-    {
-      image: "/nvidia-workshop-with-students-learning-ai-and-mach.jpg",
-      title: "NVIDIA Workshop 2024",
-      description:
-        "Hands-on AI and machine learning workshop with industry experts",
-    },
-    {
-      image: "/acm-hackathon-event-with-students-coding-together.jpg",
-      title: "Annual Hackathon",
-      description: "48-hour coding marathon bringing together the best minds",
-    },
-    {
-      image: "/acm-club-meeting-with-students-discussing-algorith.jpg",
-      title: "Algorithm Study Session",
-      description:
-        "Weekly study sessions to master competitive programming concepts",
-    },
-    {
-      image: "/acm-graduation-ceremony-with-club-members.jpg",
-      title: "Graduation Ceremony",
-      description: "Celebrating our members achievements and new beginnings",
-    },
-  ];
-
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % memories.length);
+    setCurrentSlide((prev) => (prev + 1) % memoriesResolved.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + memories.length) % memories.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + memoriesResolved.length) % memoriesResolved.length,
+    );
   };
 
   return (
@@ -52,7 +42,8 @@ export default function MemoriesSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
-            Memories & <span className="text-primary">Highlights</span>
+            {title.split("&")[0]} &{" "}
+            <span className="text-primary">{title.split("&")[1]}</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
             Relive the amazing moments from our events, competitions, and
@@ -62,21 +53,23 @@ export default function MemoriesSection() {
 
         <div className="relative max-w-4xl mx-auto">
           {/* Main slider */}
-          <Card className="overflow-hidden">
-            <CardContent className="p-0">
-              <div className="relative h-96 overflow-hidden">
+          <Card className="overflow-hidden p-0">
+            <CardContent className="p-0 ">
+              <div className="relative h-150 overflow-hidden">
                 <img
-                  src={memories[currentSlide].image || "/placeholder.svg"}
-                  alt={memories[currentSlide].title}
+                  src={
+                    memoriesResolved[currentSlide].image || "/placeholder.svg"
+                  }
+                  alt={memoriesResolved[currentSlide].title}
                   className="w-full h-full object-cover transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
                   <h3 className="text-2xl font-bold mb-2">
-                    {memories[currentSlide].title}
+                    {memoriesResolved[currentSlide].title}
                   </h3>
                   <p className="text-white/90 text-pretty">
-                    {memories[currentSlide].description}
+                    {memoriesResolved[currentSlide].description}
                   </p>
                 </div>
               </div>
@@ -103,7 +96,7 @@ export default function MemoriesSection() {
 
           {/* Dots indicator */}
           <div className="flex justify-center mt-6 space-x-2">
-            {memories.map((_, index) => (
+            {memoriesResolved.map((_, index) => (
               <button
                 key={index}
                 className={`w-3 h-3 rounded-full transition-colors ${
@@ -115,31 +108,6 @@ export default function MemoriesSection() {
               />
             ))}
           </div>
-        </div>
-
-        {/* Thumbnail strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-12">
-          {memories.map((memory, index) => (
-            <Card
-              key={index}
-              className={`cursor-pointer transition-all duration-300 ${
-                index === currentSlide
-                  ? "ring-2 ring-primary"
-                  : "hover:ring-1 hover:ring-primary/50"
-              }`}
-              onClick={() => setCurrentSlide(index)}
-            >
-              <CardContent className="p-0">
-                <div className="relative h-24 overflow-hidden rounded-lg">
-                  <img
-                    src={memory.image || "/placeholder.svg"}
-                    alt={memory.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          ))}
         </div>
       </div>
     </section>

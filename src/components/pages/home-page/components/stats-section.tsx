@@ -1,57 +1,35 @@
 "use client";
-
-import type React from "react";
 import { useEffect, useState, useRef } from "react";
 import { Card, CardContent } from "@/components/shared/ui/card";
-import { Users, Trophy, BookOpen, Heart } from "lucide-react";
+import { TypeStatisticsSectionSkeleton } from "@/types/contentful";
+import { Entry } from "contentful";
+import { isResolvedEntry } from "@/lib/api/api.utils";
+import { IconDisplay } from "@/components/shared/icon-display";
+import { getThemeBadgeColor } from "@/utils/theme.util";
 
-interface StatItem {
-  icon: React.ElementType;
-  value: number;
-  label: string;
-  suffix: string;
-  iconColor: string;
-  backgroundColor: string;
+interface StatsProps {
+  data: Entry<TypeStatisticsSectionSkeleton, undefined, string>;
 }
 
-export default function StatsSection() {
+export default function StatsSection({ data }: StatsProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { title, description, statistics } = data.fields;
 
-  const stats: StatItem[] = [
-    {
-      icon: Users,
-      value: 200,
-      label: "Members Enrolled",
-      suffix: "+",
-      iconColor: "text-primary",
-      backgroundColor: "bg-primary/10",
-    },
-    {
-      icon: Trophy,
-      value: 15,
-      label: "Competitions Participated In",
-      suffix: "+",
-      iconColor: "text-accent",
-      backgroundColor: "bg-accent/10",
-    },
-    {
-      icon: BookOpen,
-      value: 50,
-      label: "Workshops Conducted",
-      suffix: "+",
-      iconColor: "text-secondary",
-      backgroundColor: "bg-secondary/10",
-    },
-    {
-      icon: Heart,
-      value: 6,
-      label: "Social Media Community",
-      suffix: "K+ followers",
-      iconColor: "text-primary",
-      backgroundColor: "bg-primary/10",
-    },
-  ];
+  const statisticsResolved = statistics?.filter((item) =>
+    isResolvedEntry(item),
+  );
+
+  const stats = statisticsResolved.map((stat, index) => {
+    const st = stat.fields;
+    return {
+      icon: st.iconName,
+      value: st.value,
+      label: st.name,
+      suffix: st.suffix,
+      badgeStyle: getThemeBadgeColor(index),
+    };
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -60,7 +38,7 @@ export default function StatsSection() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (sectionRef.current) {
@@ -91,9 +69,9 @@ export default function StatsSection() {
           }`}
         >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
-            Key{" "}
+            {title.split(" ")[0]}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-              Statistics
+              {title.split(" ")[1]}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
@@ -118,10 +96,11 @@ export default function StatsSection() {
               <CardContent className="p-8 text-center relative">
                 <div className="mb-6 flex justify-center">
                   <div
-                    className={`p-5 rounded-2xl group-hover:scale-110 transition-all duration-300 ${stat.backgroundColor}`}
+                    className={`p-5 rounded-2xl group-hover:scale-110 transition-all duration-300 ${stat.badgeStyle.bg}`}
                   >
-                    <stat.icon
-                      className={`h-10 w-10 ${stat.iconColor} drop-shadow-sm`}
+                    <IconDisplay
+                      name={stat.icon}
+                      className={`h-10 w-10 ${stat.badgeStyle.text} drop-shadow-sm`}
                     />
                   </div>
                 </div>

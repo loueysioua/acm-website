@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/shared/ui/button";
 import {
   ArrowRight,
@@ -12,22 +11,33 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { BackgroundShapes, GeometricRain } from "@/components/shared";
-import { useEffect, useState } from "react";
-import { HeroSectionType } from "@/types/home/hero-section/hero-section";
-import homeService from "@/services/home.service";
 import { useRouter } from "next/navigation";
+import { Entry } from "contentful";
+import { TypeHeroSectionSkeleton } from "@/types/contentful";
+import { isResolvedEntry } from "@/lib/api/api.utils";
 
-export default function HeroSection() {
-  const [heroSectionContent, setHeroSectionContent] =
-    useState<HeroSectionType>();
+interface HeroProps {
+  data: Entry<TypeHeroSectionSkeleton, undefined, string>;
+}
 
+export default function HeroSection({ data }: HeroProps) {
   const router = useRouter();
+  const {
+    title,
+    subtitle,
+    description,
+    ctaPrimary,
+    ctaSecondary,
+    label,
+    stats,
+  } = data.fields;
 
-  useEffect(() => {
-    homeService.getHeroSectionContent().then((data) => {
-      setHeroSectionContent(data);
-    });
-  }, []);
+  const ctaPrimaryResolved = isResolvedEntry(ctaPrimary)
+    ? ctaPrimary.fields
+    : null;
+  const ctaSecondaryResolved = isResolvedEntry(ctaSecondary)
+    ? ctaSecondary.fields
+    : null;
 
   const onCtaClick = (path: string) => {
     router.push(path);
@@ -52,7 +62,7 @@ export default function HeroSection() {
               .
               <Sparkles className="w-4 h-4 text-accent" />
               <span className="text-sm font-medium text-white">
-                {heroSectionContent?.label ?? "Welcome To"}
+                {label ?? "Welcome To"}
               </span>
             </div>
 
@@ -64,16 +74,16 @@ export default function HeroSection() {
                   textShadow: "0 2px 8px rgba(0, 0, 0, 0.5)",
                 }}
               >
-                {heroSectionContent?.title
-                  .split(" ")
-                  .splice(0, heroSectionContent?.title.split(" ").length / 2)
+                {title
+                  ?.split(" ")
+                  .splice(0, title.split(" ").length / 2)
                   .map((word, index) => {
                     return <span key={index}>{word + " "}</span>;
                   })}
                 <div className="block ">
-                  {heroSectionContent?.title
-                    .split(" ")
-                    .splice(heroSectionContent?.title.split(" ").length / 2)
+                  {title
+                    ?.split(" ")
+                    .splice(title.split(" ").length / 2)
                     .map((word, index) => {
                       return (
                         <span key={index} className="text-accent mt-2">
@@ -91,7 +101,7 @@ export default function HeroSection() {
                   textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
                 }}
               >
-                {heroSectionContent?.subtitle}
+                {subtitle}
               </p>
 
               <p
@@ -101,7 +111,7 @@ export default function HeroSection() {
                   textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
                 }}
               >
-                {heroSectionContent?.description}
+                {description}
               </p>
             </div>
 
@@ -112,11 +122,9 @@ export default function HeroSection() {
               <Button
                 size="lg"
                 className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg btn-enhanced animate-pulse-glow font-semibold shadow-lg"
-                onClick={() =>
-                  onCtaClick(heroSectionContent?.ctaPrimary.url ?? "")
-                }
+                onClick={() => onCtaClick(ctaPrimaryResolved?.url ?? "")}
               >
-                {heroSectionContent?.ctaPrimary.label}
+                {ctaPrimaryResolved?.label}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
@@ -128,11 +136,9 @@ export default function HeroSection() {
                   borderWidth: "2px",
                   color: "#ffffff",
                 }}
-                onClick={() =>
-                  onCtaClick(heroSectionContent?.ctaSecondary.url ?? "")
-                }
+                onClick={() => onCtaClick(ctaSecondaryResolved?.url ?? "")}
               >
-                Join Us Today
+                {ctaSecondaryResolved?.label}
               </Button>
             </div>
 

@@ -1,4 +1,6 @@
-import { Linkedin, Mail } from "lucide-react";
+"use client";
+import { Facebook, Mail } from "lucide-react";
+import { useState } from "react";
 
 export default function Hexagon({
   member = {
@@ -6,13 +8,22 @@ export default function Hexagon({
     role: "Position",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
-    linkedin: "https://linkedin.com",
+    facebook: "https://linkedin.com",
     email: "contact@example.com",
   },
   hexWidth = 200,
   hexHeight = 220,
 }) {
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const padding = 0;
+
+  const handleCopyEmail = (email: string) => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(email);
+
+    // Reset the icon back to Mail after 2 seconds
+    setTimeout(() => setCopiedEmail(null), 2000);
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -136,19 +147,21 @@ export default function Hexagon({
             </p>
             <div className="flex gap-3 justify-center">
               <a
-                href={member.linkedin}
+                href={member.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-white/25 hover:bg-white/40 rounded-full backdrop-blur-md transition-all duration-200 pointer-events-auto hover:scale-110 transform"
               >
-                <Linkedin className="w-4 h-4 text-white" />
+                <Facebook className="w-4 h-4 text-white" />
               </a>
-              <a
-                href={`mailto:${member.email}`}
-                className="p-2 bg-white/25 hover:bg-white/40 rounded-full backdrop-blur-md transition-all duration-200 pointer-events-auto hover:scale-110 transform"
+              <button
+                onClick={() => handleCopyEmail(member.email)}
+                className="p-2 bg-white/25 hover:bg-white/40 rounded-full backdrop-blur-md transition-all duration-200 pointer-events-auto hover:scale-110 transform group"
+                aria-label="Copy email address"
+                title="Copy email address" // Tooltip on hover
               >
                 <Mail className="w-4 h-4 text-white" />
-              </a>
+              </button>
             </div>
           </div>
         </div>

@@ -6,8 +6,10 @@ import { Suspense } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title:
-    "ACM INSAT Student Chapter - Empowering the Next Generation of Innovators",
+  icons: {
+    icon: "/favicon.png",
+  },
+  title: "ACM INSAT Student Chapter",
   description:
     "Join the ACM INSAT Student Chapter - one of the largest computer science organizations dedicated to competitive programming, AI, web development, and cloud computing.",
   keywords: [

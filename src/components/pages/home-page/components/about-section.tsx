@@ -1,14 +1,29 @@
 "use client";
-
+import { IconDisplay } from "@/components/shared/icon-display";
 import { Button } from "@/components/shared/ui/button";
 import { Card, CardContent } from "@/components/shared/ui/card";
-import { ArrowRight, Code2, Brain, Cloud, Globe } from "lucide-react";
+import { isResolvedEntry } from "@/lib/api/api.utils";
+import { TypeHomeAboutSkeleton } from "@/types/contentful";
+import { Entry } from "contentful";
+import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-export default function AboutSection() {
+interface AboutProps {
+  data: Entry<TypeHomeAboutSkeleton, undefined, string>;
+}
+
+export default function AboutSection({ data }: AboutProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const router = useRouter();
 
+  const { title, description, clubFields, aboutLink } = data.fields;
+  const clubFieldsResolved =
+    clubFields?.filter((item) => isResolvedEntry(item)) ?? [];
+  const aboutLinkResolved = isResolvedEntry(aboutLink)
+    ? aboutLink.fields
+    : null;
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -16,7 +31,7 @@ export default function AboutSection() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (sectionRef.current) {
@@ -26,36 +41,23 @@ export default function AboutSection() {
     return () => observer.disconnect();
   }, []);
 
-  const features = [
-    {
-      icon: Code2,
-      title: "Competitive Programming",
-      description:
-        "Master algorithms and data structures through intensive training and competitions.",
-      iconColor: "text-primary",
-    },
-    {
-      icon: Brain,
-      title: "Artificial Intelligence",
-      description:
-        "Explore machine learning, deep learning, and AI applications in real-world projects.",
-      iconColor: "text-secondary",
-    },
-    {
-      icon: Globe,
-      title: "Web Development",
-      description:
-        "Build modern web applications using cutting-edge technologies and frameworks.",
-      iconColor: "text-accent",
-    },
-    {
-      icon: Cloud,
-      title: "Cloud Computing",
-      description:
-        "Learn cloud platforms, DevOps practices, and scalable system architecture.",
-      iconColor: "text-primary",
-    },
-  ];
+  const features = clubFieldsResolved.map((field, index) => ({
+    title: field.fields.name,
+    description: field.fields.description,
+
+    icon: (
+      <IconDisplay
+        name={field.fields.iconName || "code"}
+        className={`h-10 w-10 ${
+          index % 3 === 0
+            ? "text-primary"
+            : index % 3 === 1
+            ? "text-secondary"
+            : "text-accent"
+        } mb-4 transition-transform duration-300 group-hover:scale-110 drop-shadow-lg`}
+      />
+    ),
+  }));
 
   return (
     <section
@@ -86,19 +88,13 @@ export default function AboutSection() {
           >
             <div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
-                About{" "}
+                {title.split(" ")[0] + " "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                  ACM INSAT
+                  {title.split(" ")[1] + " " + title.split(" ")[2]}
                 </span>
               </h2>
-              <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
-                The ACM INSAT Student Chapter stands as one of the largest and
-                most renowned computer science organizations, celebrated for its
-                dedication to mastering coding skills and excelling in
-                competitive programming contests. We invite students of all
-                backgrounds, interests, and skill levels to become part of our
-                vibrant community, where passion for technology and innovation
-                knows no bounds.
+              <p className="text-xl text-muted-foreground text-pretty leading-relaxed w-250">
+                {description}
               </p>
             </div>
 
@@ -115,9 +111,10 @@ export default function AboutSection() {
                 >
                   <CardContent className="p-6 relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <feature.icon
+                    {feature.icon}
+                    {/* <feature.icon
                       className={`h-10 w-10 ${feature.iconColor} mb-4 transition-transform duration-300 group-hover:scale-110 drop-shadow-lg`}
-                    />
+                    /> */}
                     <h3 className="font-bold text-foreground mb-3 text-lg">
                       {feature.title}
                     </h3>
@@ -129,8 +126,11 @@ export default function AboutSection() {
               ))}
             </div>
 
-            <Button className="text-primary glass-button px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group ">
-              Learn More About Us
+            <Button
+              className="text-primary glass-button px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group "
+              onClick={() => router.push(aboutLinkResolved?.url ?? "/about")}
+            >
+              {aboutLinkResolved?.label}
               <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </div>
