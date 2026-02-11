@@ -1,10 +1,11 @@
-import type { Asset, Entry, EntryFields } from "contentful";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeClubFieldFields {
-    name: EntryFields.Symbol;
-    contentfulDisplayName?: EntryFields.Symbol;
-    description?: EntryFields.Symbol;
-    icon?: Asset;
+    name: EntryFieldTypes.Symbol;
+    contentfulDisplayName?: EntryFieldTypes.Symbol;
+    description?: EntryFieldTypes.Symbol;
+    iconName?: EntryFieldTypes.Symbol;
 }
 
-export type TypeClubField = Entry<TypeClubFieldFields>;
+export type TypeClubFieldSkeleton = EntrySkeletonType<TypeClubFieldFields, "clubField">;
+export type TypeClubField<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeClubFieldSkeleton, Modifiers, Locales>;

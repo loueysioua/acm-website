@@ -1,14 +1,15 @@
-import type { Entry, EntryFields } from "contentful";
-import type { TypeLinkFields } from "./TypeLink";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeLinkSkeleton } from "./TypeLink";
 
 export interface TypeUpComingEventFields {
-    title: EntryFields.Symbol;
-    description: EntryFields.Text;
-    date?: EntryFields.Date;
-    startTime: EntryFields.Date;
-    endTime: EntryFields.Date;
-    location: EntryFields.Symbol;
-    registrationLink?: Entry<TypeLinkFields>;
+    title: EntryFieldTypes.Symbol;
+    description: EntryFieldTypes.Text;
+    date?: EntryFieldTypes.Date;
+    startTime: EntryFieldTypes.Date;
+    endTime: EntryFieldTypes.Date;
+    location: EntryFieldTypes.Symbol;
+    registrationLink?: EntryFieldTypes.EntryLink<TypeLinkSkeleton>;
 }
 
-export type TypeUpComingEvent = Entry<TypeUpComingEventFields>;
+export type TypeUpComingEventSkeleton = EntrySkeletonType<TypeUpComingEventFields, "upComingEvent">;
+export type TypeUpComingEvent<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeUpComingEventSkeleton, Modifiers, Locales>;

@@ -1,11 +1,12 @@
-import type { Entry, EntryFields } from "contentful";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeFooterFields {
-    socials?: Entry<Record<string, any>>[];
-    email?: EntryFields.Symbol;
-    location?: EntryFields.RichText;
-    title?: EntryFields.Symbol;
-    contentfulDisplayName?: EntryFields.Symbol;
+    socials?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<EntrySkeletonType>>;
+    email?: EntryFieldTypes.Symbol;
+    location?: EntryFieldTypes.RichText;
+    title?: EntryFieldTypes.Symbol;
+    contentfulDisplayName?: EntryFieldTypes.Symbol;
 }
 
-export type TypeFooter = Entry<TypeFooterFields>;
+export type TypeFooterSkeleton = EntrySkeletonType<TypeFooterFields, "footer">;
+export type TypeFooter<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeFooterSkeleton, Modifiers, Locales>;

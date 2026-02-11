@@ -1,13 +1,14 @@
-import type { Entry, EntryFields } from "contentful";
-import type { TypeClubFieldFields } from "./TypeClubField";
-import type { TypeLinkFields } from "./TypeLink";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeClubFieldSkeleton } from "./TypeClubField";
+import type { TypeLinkSkeleton } from "./TypeLink";
 
 export interface TypeHomeAboutFields {
-    contentfulDisplayName?: EntryFields.Symbol;
-    title: EntryFields.Symbol;
-    description: EntryFields.RichText;
-    clubFields?: Entry<TypeClubFieldFields>[];
-    aboutLink: Entry<TypeLinkFields>;
+    contentfulDisplayName?: EntryFieldTypes.Symbol;
+    title: EntryFieldTypes.Symbol;
+    clubFields?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeClubFieldSkeleton>>;
+    aboutLink: EntryFieldTypes.EntryLink<TypeLinkSkeleton>;
+    description: EntryFieldTypes.Text;
 }
 
-export type TypeHomeAbout = Entry<TypeHomeAboutFields>;
+export type TypeHomeAboutSkeleton = EntrySkeletonType<TypeHomeAboutFields, "homeAbout">;
+export type TypeHomeAbout<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeHomeAboutSkeleton, Modifiers, Locales>;

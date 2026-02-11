@@ -1,10 +1,12 @@
-import type { Asset, Entry, EntryFields } from "contentful";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeStatisticFields {
-    name: EntryFields.Symbol;
-    value: EntryFields.Number;
-    icon?: Asset;
-    contentfulDisplayName?: EntryFields.Symbol;
+    name: EntryFieldTypes.Symbol;
+    value: EntryFieldTypes.Number;
+    contentfulDisplayName?: EntryFieldTypes.Symbol;
+    iconName: EntryFieldTypes.Symbol;
+    suffix: EntryFieldTypes.Symbol;
 }
 
-export type TypeStatistic = Entry<TypeStatisticFields>;
+export type TypeStatisticSkeleton = EntrySkeletonType<TypeStatisticFields, "statistic">;
+export type TypeStatistic<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeStatisticSkeleton, Modifiers, Locales>;

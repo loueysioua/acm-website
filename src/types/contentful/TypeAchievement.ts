@@ -1,12 +1,13 @@
-import type { Asset, Entry, EntryFields } from "contentful";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeAchievementFields {
-    label: EntryFields.Symbol;
-    shortDescription?: EntryFields.Symbol;
-    longDescription?: EntryFields.Text;
-    contentfulDisplayName?: EntryFields.Symbol;
-    icon?: Asset;
-    type?: "Annual Event" | "Milestone" | "Recent";
+    label: EntryFieldTypes.Symbol;
+    shortDescription?: EntryFieldTypes.Symbol;
+    longDescription?: EntryFieldTypes.Text;
+    contentfulDisplayName?: EntryFieldTypes.Symbol;
+    type?: EntryFieldTypes.Symbol<"Annual Event" | "Milestone" | "Recent">;
+    iconName: EntryFieldTypes.Symbol;
 }
 
-export type TypeAchievement = Entry<TypeAchievementFields>;
+export type TypeAchievementSkeleton = EntrySkeletonType<TypeAchievementFields, "achievement">;
+export type TypeAchievement<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeAchievementSkeleton, Modifiers, Locales>;

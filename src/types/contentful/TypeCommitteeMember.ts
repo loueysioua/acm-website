@@ -1,11 +1,12 @@
-import type { Asset, Entry, EntryFields } from "contentful";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeCommitteeMemberFields {
-    name: EntryFields.Symbol;
-    position: EntryFields.Symbol;
-    email: EntryFields.Symbol;
-    picture: Asset;
-    facebookLink: EntryFields.Symbol;
+    name: EntryFieldTypes.Symbol;
+    position: EntryFieldTypes.Symbol;
+    email: EntryFieldTypes.Symbol;
+    picture: EntryFieldTypes.AssetLink;
+    facebookLink: EntryFieldTypes.Symbol;
 }
 
-export type TypeCommitteeMember = Entry<TypeCommitteeMemberFields>;
+export type TypeCommitteeMemberSkeleton = EntrySkeletonType<TypeCommitteeMemberFields, "committeeMember">;
+export type TypeCommitteeMember<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeCommitteeMemberSkeleton, Modifiers, Locales>;

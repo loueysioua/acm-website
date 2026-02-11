@@ -1,13 +1,14 @@
-import type { Entry, EntryFields } from "contentful";
-import type { TypeAchievementFields } from "./TypeAchievement";
-import type { TypeLinkFields } from "./TypeLink";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeAchievementSkeleton } from "./TypeAchievement";
+import type { TypeLinkSkeleton } from "./TypeLink";
 
 export interface TypeImpactSectionFields {
-    achievements: Entry<TypeAchievementFields>[];
-    achievementsLink: Entry<TypeLinkFields>;
-    contentfulDisplayName: EntryFields.Symbol;
-    title: EntryFields.Symbol;
-    description?: EntryFields.Text;
+    achievements: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeAchievementSkeleton>>;
+    achievementsLink: EntryFieldTypes.EntryLink<TypeLinkSkeleton>;
+    contentfulDisplayName: EntryFieldTypes.Symbol;
+    title: EntryFieldTypes.Symbol;
+    description?: EntryFieldTypes.Text;
 }
 
-export type TypeImpactSection = Entry<TypeImpactSectionFields>;
+export type TypeImpactSectionSkeleton = EntrySkeletonType<TypeImpactSectionFields, "impactSection">;
+export type TypeImpactSection<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeImpactSectionSkeleton, Modifiers, Locales>;

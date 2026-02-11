@@ -1,9 +1,10 @@
-import type { Entry, EntryFields } from "contentful";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeLinkSkeleton } from "./TypeLink";
 
 export interface TypeNavigationFields {
-    title?: EntryFields.Symbol;
-    links?: Entry<Record<string, any>>[];
-    contentfulDisplayName?: EntryFields.Symbol;
+    links?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeLinkSkeleton>>;
+    contentfulDisplayName?: EntryFieldTypes.Symbol;
 }
 
-export type TypeNavigation = Entry<TypeNavigationFields>;
+export type TypeNavigationSkeleton = EntrySkeletonType<TypeNavigationFields, "navigation">;
+export type TypeNavigation<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeNavigationSkeleton, Modifiers, Locales>;

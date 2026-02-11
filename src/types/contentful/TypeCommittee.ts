@@ -1,12 +1,13 @@
-import type { Entry, EntryFields } from "contentful";
-import type { TypeCommitteeMemberFields } from "./TypeCommitteeMember";
-import type { TypeLinkFields } from "./TypeLink";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeCommitteeMemberSkeleton } from "./TypeCommitteeMember";
+import type { TypeLinkSkeleton } from "./TypeLink";
 
 export interface TypeCommitteeFields {
-    committeeMembers: Entry<TypeCommitteeMemberFields>[];
-    title: EntryFields.Symbol;
-    description: EntryFields.Symbol;
-    callToAction?: Entry<TypeLinkFields>;
+    committeeMembers: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeCommitteeMemberSkeleton>>;
+    title: EntryFieldTypes.Symbol;
+    description: EntryFieldTypes.Symbol;
+    callToAction?: EntryFieldTypes.EntryLink<TypeLinkSkeleton>;
 }
 
-export type TypeCommittee = Entry<TypeCommitteeFields>;
+export type TypeCommitteeSkeleton = EntrySkeletonType<TypeCommitteeFields, "committee">;
+export type TypeCommittee<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeCommitteeSkeleton, Modifiers, Locales>;

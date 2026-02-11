@@ -81,6 +81,7 @@ export function Navigation() {
               <a
                 key={item.name}
                 href={item.href}
+                onClick={() => setSelectedNavItem(index)}
                 className={`hover:text-accent transition-all duration-300 font-medium drop-shadow-sm relative group px-3 py-2 rounded-lg hover:glass-accent ${
                   selectedNavItem === index
                     ? "text-accent"
